@@ -49,6 +49,9 @@ const App = () => {
 
             setAppTheme(parsedStorageTheme);
         }
+
+        const windowHeight = window.innerHeight;
+        document.body.style.height = `${windowHeight}px`;
     }, []);
 
     return (
