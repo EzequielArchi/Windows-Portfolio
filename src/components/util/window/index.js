@@ -10,7 +10,7 @@ import styled from "styled-components";
 import Draggable from "../draggable";
 import Resizer from "../resizer";
 import WindowBody from "./body";
-import WindowHeader from "./header";
+import WindowHeader, { WINDOW_HEADER_HEIGHT } from "./header";
 import { useDispatch } from "react-redux";
 import {
     defocusProgram,
@@ -58,7 +58,7 @@ const INITIAL_POSITION =
                   NAVBAR_HEIGHT,
           };
 
-const getIfIsMaximazed = (position, size) => {
+const isWindowMaximazed = (position, size) => {
     const { x, y } = position;
     const { width, height } = size;
     const { innerWidth, innerHeight } = window;
@@ -71,7 +71,7 @@ const Window = forwardRef((props, ref) => {
         instanceId,
         children,
         initialPosition = INITIAL_POSITION,
-        size = INITIAL_SIZE,
+        initialSize = INITIAL_SIZE,
         minSize = MIN_SIZE,
         disabledResize,
         options,
@@ -85,11 +85,12 @@ const Window = forwardRef((props, ref) => {
         onResizing,
         onResizingEnd,
         onMinimize,
-        onMaximize
+        onMaximize,
     } = props;
 
     const dispatch = useDispatch();
     const [position, setPosition] = useState(initialPosition);
+    const [size, setSize] = useState(initialSize);
     const [allowMouseEvents, setAllowMouseEvents] = useState(true);
 
     const isFocused = focusLevel === maxFocusLevel;
@@ -100,24 +101,29 @@ const Window = forwardRef((props, ref) => {
     const resizerRef = useRef(null);
     const draggableRef = useRef(null);
 
-    const isMaximazed = useRef(getIfIsMaximazed(initialPosition, minSize));
-    const lastSize = useRef(minSize);
+    const isMaximazed = useRef(isWindowMaximazed(initialPosition, initialSize));
+    const lastSize = useRef(initialSize);
     const lastPosition = useRef(initialPosition);
 
     const handleMaximize = useCallback(() => {
         if (isMaximazed.current) {
             setPosition(lastPosition.current);
+            setSize(lastSize.current);
             resizerRef.current.updateSize(lastSize.current);
             isMaximazed.current = false;
         } else {
             lastSize.current = resizerRef.current.getCurrentSize();
             lastPosition.current = position;
             isMaximazed.current = true;
+
             setPosition({ x: 0, y: 0 });
-            resizerRef.current.updateSize({
+
+            const maximizedSize = {
                 width: window.innerWidth,
                 height: draggableRef.current.parentElement.clientHeight,
-            });
+            };
+            setSize(maximizedSize);
+            resizerRef.current.updateSize(maximizedSize);
         }
 
         if (onMaximize) onMaximize();
@@ -141,7 +147,8 @@ const Window = forwardRef((props, ref) => {
     );
 
     const handleWindowMouseDown = (event) => {
-        if (["close-window", "minimize-window"].includes(event.target.id)) return;
+        if (["close-window", "minimize-window"].includes(event.target.id))
+            return;
         dispatch(focusProgram(instanceId));
     };
 
@@ -155,7 +162,10 @@ const Window = forwardRef((props, ref) => {
 
     const handleDrag = useCallback(
         (newPosition) => {
-            if (isMaximazed.current) return;
+            if (isMaximazed.current) {
+                isMaximazed.current = false;
+            }
+
             const { x, y } = newPosition;
 
             setPosition({ x, y });
@@ -170,6 +180,7 @@ const Window = forwardRef((props, ref) => {
                 isMaximazed.current = false;
             }
 
+            setSize(newSize);
             if (onResizing) onResizing(newSize);
         },
         [onResizing]
@@ -184,8 +195,13 @@ const Window = forwardRef((props, ref) => {
     );
 
     const handleDragEnd = useCallback(
-        (endPosition) => {
+        (endPosition, overflow) => {
             enabledPointerEvents();
+
+            if (overflow) {
+                const { x, y } = endPosition;
+                setPosition({ x, y });
+            }
 
             if (onDragEnd) onDragEnd(endPosition);
         },
@@ -211,6 +227,8 @@ const Window = forwardRef((props, ref) => {
             setPosition({ x, y });
 
             if (onResizingEnd) onResizingEnd(endSize);
+
+            draggableRef.current.checkOverflow();
         },
         [onResizingEnd]
     );
@@ -272,10 +290,17 @@ const Window = forwardRef((props, ref) => {
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
             style={draggableStyle}
+            preventOverflow={true}
+            overflowOffset={{
+                top: size.height,
+                right: 50,
+                bottom: WINDOW_HEADER_HEIGHT,
+                left: 130,
+            }}
         >
             <StyledWindowContainer onMouseDown={handleWindowMouseDown}>
                 <Resizer
-                    size={size}
+                    size={initialSize}
                     minSize={minSize}
                     ref={resizerRef}
                     containerRef={draggableRef}

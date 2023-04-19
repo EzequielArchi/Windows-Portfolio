@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 
+export const WINDOW_HEADER_HEIGHT = 34;
+
 const StyledWindowHeader = styled.div`
-    height: 34px;
+    height: ${WINDOW_HEADER_HEIGHT}px;
     width: 100%;
     --generic-bar-color: ${({ theme }) =>
         theme.darkTheme ? `#424242` : `#cccccc`};
