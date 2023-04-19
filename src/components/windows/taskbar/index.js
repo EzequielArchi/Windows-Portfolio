@@ -123,6 +123,10 @@ const Taskbar = () => {
     };
 
     useLayoutEffect(() => {
+        const checkNumberFormat = (number) => {
+            return number.padStart(2, "0");
+        };
+        
         const updateDateTime = () => {
             const currentDate = new Date();
             const year = currentDate.getFullYear();
@@ -137,7 +141,7 @@ const Taskbar = () => {
             const ampm = hours >= 12 ? "PM" : "AM";
             hours = hours % 12;
             hours = hours ? hours : 12;
-            minutes = minutes.toString();
+            minutes = checkNumberFormat(minutes.toString());
 
             timeRef.current.innerText = `${hours}:${minutes} ${ampm}`;
             dateRef.current.innerText = `${month}/${day}/${year}`;
@@ -178,6 +182,7 @@ const Taskbar = () => {
             <StyledWindowsDateTime
                 onClick={handleDateTimeClick}
                 id="dateTimeTaskbar"
+                className="notranslate"
             >
                 <span ref={timeRef}></span>
                 <span ref={dateRef}></span>

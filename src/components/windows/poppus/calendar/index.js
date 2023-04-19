@@ -247,7 +247,7 @@ const Calendar = (props) => {
     return (
         <Popup show={showCalendar} style={{ bottom: 0, right: 0 }}>
             <ClickAwayListener onClickAway={handleClickAway}>
-                <StyledCalendar>
+                <StyledCalendar className="notranslate">
                     <Clock onDateClick={handleDateClick} />
                     <StyledHeader>
                         <StyledMonth>
