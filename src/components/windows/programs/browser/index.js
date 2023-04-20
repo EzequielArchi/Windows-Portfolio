@@ -17,6 +17,11 @@ const StyledBrowser = styled.div`
     height: 100%;
 `;
 
+const StyledIframe = styled.iframe`
+    user-select: none;
+    border: none;
+`
+
 const HOME_URL = "https://www.google.com/search?igu=1";
 
 const Browser = (props) => {
@@ -85,7 +90,7 @@ const Browser = (props) => {
                     initPage={history[0]}
                     ref={headerRef}
                 />
-                <iframe
+                <StyledIframe
                     ref={iframeRef}
                     id={instanceId}
                     width="100%"
@@ -93,7 +98,6 @@ const Browser = (props) => {
                     src={src}
                     title="Browser"
                     allow="autoplay"
-                    style={{ border: "none" }}
                 />
             </StyledBrowser>
             {maxFocusLevel !== focusLevel && <StyledWindowCover />}

@@ -35,7 +35,7 @@ const StyledHeaderButton = styled.button`
     transition: background-color 0.5s;
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
-    
+
     &:not([disabled]):hover {
         background-color: ${({ theme }) =>
             theme.darkTheme ? "#cccccc60" : "#00000020"};
@@ -50,6 +50,10 @@ const StyledInputContainer = styled.div`
     position: relative;
     flex: 1;
     margin-right: 10px;
+    padding-inline: 35px 40px;
+    border-radius: 15px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: ${({ theme }) => theme.darkTheme && "#424242"};
 
     .left-icon {
         position: absolute;
@@ -65,23 +69,20 @@ const StyledInputContainer = styled.div`
         right: 0%;
         transform: translate(-5px, -50%);
     }
+
+    &:focus-within {
+        box-shadow: 0px 0px 0px 2px var(--windows-color);
+    }
 `;
 
 const StyledHeaderInput = styled.input`
     width: 100%;
     height: 30px;
-    padding-inline: 35px 40px;
     font-size: 14px;
-    box-sizing: border-box;
     border: none;
     outline: none;
-    border-radius: 15px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    background-color: ${({ theme }) => theme.darkTheme && "#424242"};
+    background-color: transparent;
     color: ${({ theme }) => theme.darkTheme && "#ffffff"};
-    &:focus {
-        box-shadow: 0px 0px 0px 2px var(--windows-color);
-    }
 `;
 
 function isUrl(text) {
@@ -147,7 +148,7 @@ const BrowserHeader = forwardRef((props, ref) => {
                 <FontAwesomeIcon icon={faHome} />
             </StyledHeaderButton>
 
-            <StyledInputContainer>
+            <StyledInputContainer className="input-container">
                 <FontAwesomeIcon
                     className="header-icon left-icon"
                     icon={faGlobe}
