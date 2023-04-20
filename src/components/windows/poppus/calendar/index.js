@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useLayoutEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import Clock from "./clock";
-import ClickAwayListener from "../../../util/clickAwayListener";
+import ClickAwayListener from "../../../common/clickAwayListener";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCalendar } from "../../../../store/slices/popups";
 import Popup from "../GenericPopup";
-import { shadeColor } from "../../../../utils/colorCommunFunctions";
+import { shadeColor } from "../../../../common/colorCommunFunctions";
 
 const StyledCalendar = styled.div`
     display: flex;

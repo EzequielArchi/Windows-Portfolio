@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { AVAILABLE_ICONS } from "./utils";
 import GenericIcon from "./GenericIcon";
 import styled from "styled-components";
-import MouseSelector from "../../util/mouseSelector";
+import MouseSelector from "../../common/mouseSelector";
 import { useDispatch } from "react-redux";
 import { deselectAllIcons } from "../../../store/slices/icons";
 

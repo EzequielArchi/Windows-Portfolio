@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import Window from "../../../util/window";
+import Window from "../../../common/window";
 import styled from "styled-components";
 import BrowserHeader from "./header";
 

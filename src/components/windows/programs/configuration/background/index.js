@@ -1,8 +1,8 @@
 import React, { useContext, useRef, useState } from "react";
 import styled, { ThemeContext } from "styled-components";
 import { ThemeModifierContext } from "../../../../../App";
-import ColorPicker from "../../../../util/colorPicker";
-import Text from "../../../../util/inputs/Text";
+import ColorPicker from "../../../../common/colorPicker";
+import Text from "../../../../common/inputs/Text";
 
 const StyledBackgroundConfiguration = styled.div`
     max-width: 340px;

@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
-import Window from "../../../util/window";
+import Window from "../../../common/window";
 import ScrollbarContainer from "../../../../styles/ScrollbarContainer";
 import styled, { css } from "styled-components";
 import MailContent from "./mailContent";

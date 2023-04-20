@@ -1,5 +1,5 @@
 import HandsomeManImg from "../../../../../assets/images/mail/Handsome_Man.png";
-import { uuid } from "../../../../../utils/uuid";
+import { uuid } from "../../../../../common/uuid";
 
 export const MAILS_LIST = [
     {

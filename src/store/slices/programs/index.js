@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { uuid } from "../../../utils/uuid";
+import { uuid } from "../../../common/uuid";
 
 const initialState = { currentPrograms: {} };
 

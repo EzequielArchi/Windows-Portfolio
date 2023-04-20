@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import useRequestAnimationFrame from "../../../hooks/useRequestAnimationFrame";
-import { getCoordinatesOfDomEvent } from "../../../utils/eventsCommunFunctions";
+import { getCoordinatesOfDomEvent } from "../../../common/eventsCommunFunctions";
 
 const StyledDraggable = styled.div`
     position: absolute;

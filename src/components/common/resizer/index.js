@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import useRequestAnimationFrame from "../../../hooks/useRequestAnimationFrame";
-import { getCoordinatesOfDomEvent } from "../../../utils/eventsCommunFunctions";
+import { getCoordinatesOfDomEvent } from "../../../common/eventsCommunFunctions";
 import { OPPOSITE_SIDE, RESIZER_PROPERTIES } from "./utils";
 
 const StyledResizerContainer = styled.div`

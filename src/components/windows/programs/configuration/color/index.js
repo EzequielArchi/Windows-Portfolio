@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import styled, { ThemeContext } from "styled-components";
 import { ThemeModifierContext } from "../../../../../App";
-import ColorPicker from "../../../../util/colorPicker";
-import Checkbox from "../../../../util/inputs/Checkbox";
-import Select from "../../../../util/inputs/select";
+import ColorPicker from "../../../../common/colorPicker";
+import Checkbox from "../../../../common/inputs/Checkbox";
+import Select from "../../../../common/inputs/select";
 
 const StyledColorConfiguration = styled.div`
     max-width: 340px;

@@ -18,7 +18,7 @@ import {
     focusProgram,
     toggleMinimizeProgram,
 } from "../../../store/slices/programs";
-import { NAVBAR_HEIGHT } from "../../../utils/globalConstans";
+import { NAVBAR_HEIGHT } from "../../../common/globalConstans";
 
 const StyledWindowContainer = styled.div`
     position: relative;

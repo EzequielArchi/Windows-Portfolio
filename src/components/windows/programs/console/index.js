@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Window from "../../../util/window";
+import Window from "../../../common/window";
 import { COMMNADS, FILE_SYSTEM } from "./utils";
 import { addProgram, deleteProgram } from "../../../../store/slices/programs";
 import { useDispatch } from "react-redux";

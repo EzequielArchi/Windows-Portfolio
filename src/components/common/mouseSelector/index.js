@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import useRequestAnimationFrame from "../../../hooks/useRequestAnimationFrame";
-import { getCoordinatesOfDomEvent } from "../../../utils/eventsCommunFunctions";
+import { getCoordinatesOfDomEvent } from "../../../common/eventsCommunFunctions";
 
 const StyledSelector = styled.div`
     visibility: hidden;

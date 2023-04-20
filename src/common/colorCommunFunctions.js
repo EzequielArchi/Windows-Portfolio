@@ -30,3 +30,7 @@ export const shadeColor = (color, percent) => {
 
     return `#${hexRed}${HexGreen}${hexBlue}`;
 }
+
+export const completeColorHex = (match, red, green, blue) => {
+    return `#${red}${red}${green}${green}${blue}${blue}`;
+};
