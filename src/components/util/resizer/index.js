@@ -3,7 +3,6 @@ import React, {
     memo,
     useEffect,
     useImperativeHandle,
-    useLayoutEffect,
     useRef,
 } from "react";
 import styled from "styled-components";
@@ -290,10 +289,6 @@ const Resizer = memo(
                     }
                 );
 
-                domResizer.style.cssText += `
-                width: ${resizerRect.width}px;
-                height: ${resizerRect.height}px;
-            `;
                 if (onResizing)
                     onResizing({ width: resizerRect.width, height: resizerRect.height });
 
@@ -305,21 +300,15 @@ const Resizer = memo(
             }
         }, [onResizing]);
 
-        useLayoutEffect(() => {
-            const { width, height } = size;
-            reziserRef.current.style.cssText += `
-            width: ${width}px;
-            height: ${height}px;
-            `;
-        }, [size]);
-
         // The size is setted in the component to avoid so many class changes in the styled component
         return (
             <StyledResizerContainer
                 ref={reziserRef}
                 style={{
-                    minHeight: `${minSize.height}px`,
-                    minWidth: `${minSize.width}px`,
+                    minHeight: minSize.height,
+                    minWidth: minSize.width,
+                    width: size.width,
+                    height: size.height,
                 }}
                 disabled={disabled}
             >

@@ -37,26 +37,30 @@ const StyledWindow = styled.div`
 const MIN_SIZE = {
     width: 260,
     height: 300,
+}
+
+const getInitialSize = () => {
+    return {
+        width: Math.min(window.innerWidth - 20, 1000),
+        height: Math.min(window.innerHeight / 1.33, 800),
+    };
 };
 
-const INITIAL_SIZE = {
-    width: Math.min(window.innerWidth - 20, 1000),
-    height: Math.min(window.innerHeight / 1.33, 800),
-};
-
-const INITIAL_POSITION =
-    window.innerWidth < 768
+const getInitialPosition = () => {
+    const initialSize = getInitialSize();
+    return window.innerWidth < 768
         ? {
               x: 10,
               y: 50,
           }
         : {
-              x: window.innerWidth / 2 - INITIAL_SIZE.width / 2,
+              x: window.innerWidth / 2 - initialSize.width / 2,
               y:
                   window.innerHeight / 2 -
-                  INITIAL_SIZE.height / 2 -
+                  initialSize.height / 2 -
                   NAVBAR_HEIGHT,
           };
+};
 
 const isWindowMaximazed = (position, size) => {
     const { x, y } = position;
@@ -70,8 +74,8 @@ const Window = forwardRef((props, ref) => {
     const {
         instanceId,
         children,
-        initialPosition = INITIAL_POSITION,
-        initialSize = INITIAL_SIZE,
+        initialSize = getInitialSize(),
+        initialPosition = getInitialPosition(),
         minSize = MIN_SIZE,
         disabledResize,
         options,
@@ -92,7 +96,6 @@ const Window = forwardRef((props, ref) => {
     const [position, setPosition] = useState(initialPosition);
     const [size, setSize] = useState(initialSize);
     const [allowMouseEvents, setAllowMouseEvents] = useState(true);
-
     const isFocused = focusLevel === maxFocusLevel;
     const windowRef = useRef(null);
     const headerRef = useRef(null);
@@ -300,7 +303,7 @@ const Window = forwardRef((props, ref) => {
         >
             <StyledWindowContainer onMouseDown={handleWindowMouseDown}>
                 <Resizer
-                    size={initialSize}
+                    size={size}
                     minSize={minSize}
                     ref={resizerRef}
                     containerRef={draggableRef}
