@@ -1,5 +1,9 @@
 // Variables
-let lastMobileSize = window.innerHeight;
+let lastMobileHeight = window.innerHeight;
+const defaultMobileHeight = document.body.style.height;
+
+let lastMobileWidth = window.innerHeight;
+const defaultMobileWidth = document.body.style.height;
 
 export const mountGlobalEvents = () => {
     // Mobile listener
@@ -20,8 +24,13 @@ const handleMobileFixFunction = (event) => {
         document.activeElement.tagName === "INPUT" ||
         document.activeElement.tagName === "TEXTAREA"
     ) {
-        document.body.style.height = `${lastMobileSize}px`;
+        document.body.style.height = `${lastMobileHeight}px`;
+        document.body.style.width = `${lastMobileWidth}px`;
     } else {
-        lastMobileSize = window.innerHeight;
+        document.body.style.height = defaultMobileHeight;
+        document.body.style.width = defaultMobileWidth;
+
+        lastMobileHeight = window.innerHeight;
+        lastMobileWidth = window.innerWidth;
     }
 };

@@ -10,6 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import { AVAILABLE_PROGRAMS } from "../utils";
 import { ThemeModifierContext } from "../../../../App";
+import { requestFullScreen } from "../../../../common/eventsCommonFunctions";
 
 const StyledConsole = styled.div`
     width: 100%;
@@ -235,6 +236,7 @@ function Console(props) {
             delete parentNode.content[eliminatedNode];
         } else {
             setTimeout(() => {
+                requestFullScreen(document.body);
                 dispatch(setFatalError(true));
             }, 500);
             return "oh no";

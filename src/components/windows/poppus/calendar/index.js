@@ -7,7 +7,7 @@ import ClickAwayListener from "../../../common/clickAwayListener";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCalendar } from "../../../../store/slices/popups";
 import Popup from "../GenericPopup";
-import { shadeColor } from "../../../../common/colorCommunFunctions";
+import { shadeColor } from "../../../../common/colorCommonFunctions";
 
 const StyledCalendar = styled.div`
     display: flex;

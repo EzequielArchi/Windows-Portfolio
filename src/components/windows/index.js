@@ -8,6 +8,7 @@ import IconsList from "./icons/IconsList";
 import Calendar from "./poppus/calendar";
 import { useSelector } from "react-redux";
 import BSOD from "./bsod";
+import { NAVBAR_HEIGHT } from "../../util/globalConstans";
 
 const StyledWindowsHome = styled.div`
     --background-color: ${({ theme }) => theme.desktopColor};
@@ -63,7 +64,7 @@ const StyledWindowsLogo = styled.div`
 const StyledDesktopContainer = styled.div`
     position: relative;
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100% - ${NAVBAR_HEIGHT}px);
 `;
 
 const Windows = () => {

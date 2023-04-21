@@ -10,7 +10,7 @@ import {
     toggleMinimizeProgram,
 } from "../../../store/slices/programs";
 import { toggleCalendar } from "../../../store/slices/popups";
-import { shadeColor } from "../../../common/colorCommunFunctions";
+import { shadeColor } from "../../../common/colorCommonFunctions";
 
 const StyledTaskbar = styled.div`
     position: fixed;

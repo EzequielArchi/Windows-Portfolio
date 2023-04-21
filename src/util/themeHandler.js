@@ -1,4 +1,4 @@
-import { completeColorHex } from "../common/colorCommunFunctions";
+import { completeColorHex } from "../common/colorCommonFunctions";
 
 export const saveThemeToStorage = (key, value, currentTheme) => {
     if (Object.keys(currentTheme).includes(key)) {
