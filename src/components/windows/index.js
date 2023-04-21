@@ -6,6 +6,8 @@ import { faWindows } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IconsList from "./icons/IconsList";
 import Calendar from "./poppus/calendar";
+import { useSelector } from "react-redux";
+import BSOD from "./bsod";
 
 const StyledWindowsHome = styled.div`
     --background-color: ${({ theme }) => theme.desktopColor};
@@ -65,6 +67,12 @@ const StyledDesktopContainer = styled.div`
 `;
 
 const Windows = () => {
+    const fatalError = useSelector(({ programs }) => programs.fatalError);
+
+    if (fatalError) {
+        return <BSOD/>
+    }
+
     return (
         <StyledWindowsHome>
             <StyledWindowsLogo>

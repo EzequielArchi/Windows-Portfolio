@@ -90,6 +90,7 @@ const Window = forwardRef((props, ref) => {
         onResizingEnd,
         onMinimize,
         onMaximize,
+        onClose,
     } = props;
 
     const dispatch = useDispatch();
@@ -145,8 +146,9 @@ const Window = forwardRef((props, ref) => {
     const handleClose = useCallback(
         (event) => {
             dispatch(deleteProgram(instanceId));
+            if (onClose) onClose();
         },
-        [dispatch, instanceId]
+        [dispatch, onClose, instanceId]
     );
 
     const handleWindowMouseDown = (event) => {

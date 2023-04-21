@@ -128,6 +128,7 @@ const Taskbar = () => {
         };
         
         const updateDateTime = () => {
+            if (!timeRef.current || !dateRef.current) return;
             const currentDate = new Date();
             const year = currentDate.getFullYear();
             let month = currentDate.getMonth() + 1;

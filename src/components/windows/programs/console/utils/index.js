@@ -4,7 +4,7 @@ export const COMMNADS = {
     },
     color: {
         description:
-            "COLOR      Sets the default console text and background colors.",
+            "COLOR      Sets the default color of the console text and background with hexadecimal values.",
     },
     cd: {
         description:
@@ -12,6 +12,10 @@ export const COMMNADS = {
     },
     date: {
         description: "DATE       Displays the date.",
+    },
+    del: {
+        description:
+            "DEL        Deletes one file or folder (Use with caution).",
     },
     dir: {
         description:
@@ -21,11 +25,11 @@ export const COMMNADS = {
         description: "ECHO       Displays messages",
     },
     exe: {
-        description: "EXE        Runs a program available on the desktop with its name... but sometimes better",
+        description:
+            "EXE        Runs a program available on the desktop with its name",
     },
     exit: {
-        description:
-            "EXIT       Quits the Console program.",
+        description: "EXIT       Quits the Console program.",
     },
     help: {
         description:
@@ -53,10 +57,9 @@ export const FILE_SYSTEM = {
                     System32: {
                         type: "folder",
                         content: {
-                            "Optimization.txt": {
+                            "Important Things.dll": {
                                 type: "file",
-                                content:
-                                    "I think that if I delete this folder my pc will go faster",
+                                content: "*Kernel, drivers and all that messy stuff",
                             },
                         },
                     },
@@ -69,7 +72,13 @@ export const FILE_SYSTEM = {
                             },
                             "Calculator.exe": {
                                 type: "file",
-                                content: "I could have done just this instead, maybe it would have been easier",
+                                content:
+                                    "I could have done just this instead, maybe it would have been easier",
+                            },
+                            "Paint.exe": {
+                                type: "file",
+                                content:
+                                    "Maybe I could have asked chatgpt how to do this",
                             },
                         },
                     },
@@ -94,10 +103,10 @@ export const FILE_SYSTEM = {
                             Pictures: {
                                 type: "folder",
                                 content: {
-                                    "Beautiful Picture.jpg": {
+                                    "Picture.jpg": {
                                         type: "file",
                                         content:
-                                            "Indeed a beautiful picture... I wish i could see her",
+                                            "Eeh no... I, i can't show pictures",
                                     },
                                 },
                             },
@@ -106,8 +115,12 @@ export const FILE_SYSTEM = {
                                 content: {
                                     "Future Plans.txt": {
                                         type: "file",
+                                        content: "Escape from Argentina",
+                                    },
+                                    "CON.txt": {
+                                        type: "file",
                                         content:
-                                            "Escape from argentina",
+                                            "I name my files as I want TOM!",
                                     },
                                 },
                             },
@@ -119,7 +132,7 @@ export const FILE_SYSTEM = {
                             "Hello.txt": {
                                 type: "file",
                                 content:
-                                    "Hello dear guest, feel at home exploring this humble project... be careful not to break anything",
+                                    "Hello dear guest, feel at home exploring this humble project... be careful not to delete anything important.",
                             },
                         },
                     },
