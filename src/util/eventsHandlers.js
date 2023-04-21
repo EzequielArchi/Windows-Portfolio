@@ -3,9 +3,6 @@ let lastMobileSize = window.innerHeight;
 
 export const mountGlobalEvents = () => {
     // Mobile listener
-    window.addEventListener("touchmove", handleTouchMove, {
-        passive: false,
-    });
     if ("ontouchstart" in window) {
         window.addEventListener("resize", handleMobileFixFunction);
     }
@@ -13,17 +10,9 @@ export const mountGlobalEvents = () => {
 
 export const unmountGlobalEvents = () => {
     // Mobile listener
-    window.removeEventListener("touchmove", handleTouchMove, {
-        passive: false,
-    });
     if ("ontouchstart" in window) {
         window.removeEventListener("resize", handleMobileFixFunction);
     }
-};
-
-
-const handleTouchMove = (event) => {
-    event.preventDefault();
 };
 
 const handleMobileFixFunction = (event) => {
