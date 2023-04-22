@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { addProgram } from "../../../store/slices/programs";
@@ -41,7 +41,7 @@ const StyledTitle = styled.div`
     cursor: default;
 `;
 
-const GenericIcon = (props) => {
+const GenericIcon = forwardRef((props, ref) => {
     const { id, image, title } = props;
 
     const isSelected = useSelector(({ icons }) => icons.selected[id]);
@@ -49,17 +49,17 @@ const GenericIcon = (props) => {
     const dispatch = useDispatch();
 
     const handleSelect = () => {
-        if (!isSelected) {
-            dispatch(selectIcons([id]));
-        }
+        dispatch(selectIcons([id]));
     };
 
     const openProgram = () => {
+        dispatch(selectIcons([]));
         dispatch(addProgram({ id }));
     };
 
     return (
         <StyledIconContainer
+            ref={ref}
             isSelected={isSelected}
             onMouseDown={(e) => e.preventDefault()}
             onClick={handleSelect}
@@ -70,6 +70,6 @@ const GenericIcon = (props) => {
             <StyledTitle>{title}</StyledTitle>
         </StyledIconContainer>
     );
-};
+});
 
 export default GenericIcon;
