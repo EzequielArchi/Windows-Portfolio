@@ -1,3 +1,4 @@
+import ResumeIcon from "../../../../assets/images/icons/Resume_Icon.png";
 import BrowserIcon from "../../../../assets/images/icons/Browser_Icon.png";
 import ConsoleIcon from "../../../../assets/images/icons/Console_Icon.png";
 import SettingsIcon from "../../../../assets/images/icons/Settings_Icon.png";
@@ -18,6 +19,11 @@ export const AVAILABLE_ICONS = {
         id: "settings",
         title: "Settings",
         image: SettingsIcon,
+    },
+    resume: {
+        id: "resume",
+        title: "Resumé",
+        image: ResumeIcon,
     },
     mail: {
         id: "mail",

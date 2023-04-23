@@ -75,7 +75,7 @@ function Console(props) {
     const [directoriesPath, setDirectoriesPath] = useState([]);
 
     const windowRef = useRef(null);
-    
+
     const timeoutMatrix = useRef(null);
     const hasContactedNeo = useRef(false);
     const needsToBeRickrolled = useRef(false);
@@ -417,11 +417,26 @@ function Console(props) {
         return node.content;
     };
 
-    const handleCommandSubmit = (event) => {
-        const input = inputValue
+    const getParsedInput = () => {
+        let input = inputValue
             .replace(/\s\s+/g, " ")
             .trim()
             .replace(/['"]+/g, "");
+        input = input.replace("á", "a");
+        input = input.replace("Á", "A");
+        input = input.replace("é", "e");
+        input = input.replace("É", "E");
+        input = input.replace("í", "i");
+        input = input.replace("Í", "I");
+        input = input.replace("ó", "o");
+        input = input.replace("Ó", "O");
+        input = input.replace("ú", "u");
+        input = input.replace("Ú", "U");
+        return input;
+    };
+
+    const handleCommandSubmit = (event) => {
+        const input = getParsedInput();
         const [command, ...args] = input.split(" ");
         const uniquePath = input.substring(command.length + 1, input.length);
 
