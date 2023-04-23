@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Windows-Portfolio/static/css/main.7eb8d382.css",
-    "main.js": "/Windows-Portfolio/static/js/main.61a0bcb9.js",
+    "main.js": "/Windows-Portfolio/static/js/main.3d73fd3d.js",
     "static/media/Handsome_Man.png": "/Windows-Portfolio/static/media/Handsome_Man.6f1734195021b600ff86.png",
     "static/media/Browser_Icon.png": "/Windows-Portfolio/static/media/Browser_Icon.fe74ad5a0c8e3484a1e4.png",
     "static/media/Mail_Icon.png": "/Windows-Portfolio/static/media/Mail_Icon.47e4956704e76234da9b.png",
     "index.html": "/Windows-Portfolio/index.html",
     "main.7eb8d382.css.map": "/Windows-Portfolio/static/css/main.7eb8d382.css.map",
-    "main.61a0bcb9.js.map": "/Windows-Portfolio/static/js/main.61a0bcb9.js.map"
+    "main.3d73fd3d.js.map": "/Windows-Portfolio/static/js/main.3d73fd3d.js.map"
   },
   "entrypoints": [
     "static/css/main.7eb8d382.css",
-    "static/js/main.61a0bcb9.js"
+    "static/js/main.3d73fd3d.js"
   ]
 }
