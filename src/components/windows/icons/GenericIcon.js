@@ -17,11 +17,11 @@ const StyledIconContainer = styled.div`
     ${({ isSelected }) =>
         isSelected &&
         css`
-            box-shadow: 0px 0px 0px 1px #acc8d7bb;
+            box-shadow: inset 0px 0px 0px 1px #acc8d7bb;
         `}
     :hover {
         background-color: #acc8d780;
-        box-shadow: 0px 0px 0px 1px #acc8d7bb;
+        box-shadow: inset 0px 0px 0px 1px #acc8d7bb;
     }
 `;
 

@@ -6,10 +6,13 @@ import LinkedinLogo from "../../../../../assets/images/startMenu/LinkedIn-Logo.p
 import GithubLogo from "../../../../../assets/images/startMenu/GitHub-Logo.png";
 
 const StyledExploreMenu = styled.div`
-    width: 306px;
+    width: 316px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     @media (max-width: 768px) {
-        width: 120px;
+        width: auto;
     }
 `;
 
@@ -21,15 +24,20 @@ const StyledTitle = styled.span`
 
 const StyledExploreOptions = styled(ScrollbarContainer)`
     display: flex;
-    gap: 3px;
+    align-content: flex-start;
     flex-wrap: wrap;
+    height: 100%;
+    gap: 3px;
+    overflow-y: overlay;
+    padding-bottom: 20px;
+    box-sizing: border-box;
 
     ::-webkit-scrollbar {
-        width: 3px;
+        width: 2px;
     }
 
     @media (max-width: 768px) {
-        width: 160px;
+        padding-right: 15px;
         flex-wrap: nowrap;
         flex-direction: column;
     }
@@ -43,6 +51,7 @@ const StyledExploreOption = styled.a`
     align-items: center;
     height: 100px;
     width: 100px;
+    flex-shrink: 0;
 
     --windows-explore-option: ${({ theme }) =>
         theme.darkTheme ? "#242424" : "#efefef"};
@@ -53,7 +62,7 @@ const StyledExploreOption = styled.a`
             : css`var(--windows-explore-option)`};
 
     &:hover {
-        box-shadow: 0px 0px 0px 1px
+        box-shadow: inset 0px 0px 0px 1px
             ${({ theme }) =>
                 theme.startAndTaskbar
                     ? "#ffffff"

@@ -19,6 +19,7 @@ const StyledStartMenu = styled.div`
     height: 100%;
     width: 50px;
 `;
+
 const StyledRelativePowerContainer = styled.div`
     position: relative;
 `;
@@ -59,12 +60,12 @@ const StartMenu = () => {
     const dispatch = useDispatch();
 
     const handleSettingsClick = () => {
-        dispatch(toggleWindowsMenu());
         dispatch(
             addProgram({
                 id: "settings",
             })
         );
+        dispatch(toggleWindowsMenu());
     };
 
     const handlePowerClick = () => {

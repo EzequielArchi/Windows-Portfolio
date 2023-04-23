@@ -14,6 +14,8 @@ const StyledProgramList = styled(ScrollbarContainer)`
     font-size: 12px;
     overflow-y: overlay;
     gap: 10px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
 
     @media (max-width: 768px) {
         width: 160px;

@@ -13,8 +13,8 @@ const StyledWindowsMenu = styled.div`
     display: flex;
     font-family: "Segoe UI", "Roboto", sans-serif;
     user-select: none;
-    padding: 10px 10px 5px 0px;
-    gap: 5px;
+    padding-top: 10px;
+    gap: 10px;
 
     background-color: ${({ theme }) =>
         theme.startAndTaskbar
@@ -23,10 +23,6 @@ const StyledWindowsMenu = styled.div`
 
     color: ${({ theme }) =>
         theme.startAndTaskbar ? `#f5f5f5` : css`var(--windows-text-color)`};
-
-    @media (max-width: 480px) {
-        width: 320px;
-    }
 `;
 
 const Menu = () => {
