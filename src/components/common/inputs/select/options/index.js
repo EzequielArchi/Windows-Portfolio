@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled, { css } from "styled-components";
 
@@ -20,25 +21,40 @@ const StyledOption = styled.span`
     align-items: center;
     width: 100%;
     height: 32px;
-    background-color: ${({isSelected, theme}) => isSelected && theme.windowsColor}CC;
+    background-color: ${({ isSelected, theme }) =>
+        isSelected && theme.windowsColor}CC;
     :hover {
         background-color: #dddddd40;
-        background-color: ${({isSelected}) => isSelected && css`var(--windows-color)`};
+        background-color: ${({ isSelected }) =>
+            isSelected && css`var(--windows-color)`};
     }
     cursor: default;
 `;
 
 const Options = (props) => {
-    const { options, idKey, valueKey, selectedId, onSelect } = props;
+    const {
+        style,
+        optionStyle,
+        options,
+        idKey = "id",
+        valueKey = "value",
+        iconKey = "icon",
+        selectedId,
+        onSelect,
+    } = props;
     return (
-        <StyledOptions>
+        <StyledOptions style={style}>
             {options.map((option) => (
                 <StyledOption
                     className="windows-text"
+                    style={optionStyle}
                     key={option[idKey]}
                     isSelected={selectedId === option[idKey]}
                     onClick={() => onSelect(option)}
                 >
+                    {option[iconKey] && (
+                        <FontAwesomeIcon icon={option[iconKey]} />
+                    )}
                     {option[valueKey]}
                 </StyledOption>
             ))}

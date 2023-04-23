@@ -5,7 +5,7 @@ import ColorPicker from "../../../../common/colorPicker";
 import Checkbox from "../../../../common/inputs/Checkbox";
 import Select from "../../../../common/inputs/select";
 
-const StyledColorConfiguration = styled.div`
+const StyledColorSettings = styled.div`
     max-width: 340px;
     margin-left: 30px;
 
@@ -70,7 +70,7 @@ const Color = () => {
         : THEME_SELECT_OPTIONS[0];
 
     return (
-            <StyledColorConfiguration>
+            <StyledColorSettings>
                 <p className="title windows-text">Colors</p>
                 <p className="section-title windows-text">Choose your color</p>
                 <Select
@@ -103,7 +103,7 @@ const Color = () => {
                         onChange={handleCheckBarsAndBorders}
                     />
                 </StyledCheckbox>
-            </StyledColorConfiguration>
+            </StyledColorSettings>
     );
 };
 

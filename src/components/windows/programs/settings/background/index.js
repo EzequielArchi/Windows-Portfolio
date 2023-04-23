@@ -4,7 +4,7 @@ import { ThemeModifierContext } from "../../../../../App";
 import ColorPicker from "../../../../common/colorPicker";
 import Text from "../../../../common/inputs/Text";
 
-const StyledBackgroundConfiguration = styled.div`
+const StyledBackgroundSettings = styled.div`
     max-width: 340px;
     margin-left: 30px;
 
@@ -102,7 +102,7 @@ const Background = () => {
     };
 
     return (
-        <StyledBackgroundConfiguration>
+        <StyledBackgroundSettings>
             <p className="title windows-text">Background</p>
             <p className="section-title windows-text">
                 Choose yout background color
@@ -122,7 +122,7 @@ const Background = () => {
                 />
                 <StyledNumerSign>#</StyledNumerSign>
             </StyledCustomColor>
-        </StyledBackgroundConfiguration>
+        </StyledBackgroundSettings>
     );
 };
 

@@ -9,6 +9,7 @@ import Calendar from "./poppus/calendar";
 import { useSelector } from "react-redux";
 import BSOD from "./bsod";
 import { NAVBAR_HEIGHT } from "../../util/globalConstans";
+import Menu from "./poppus/menu";
 
 const StyledWindowsHome = styled.div`
     --background-color: ${({ theme }) => theme.desktopColor};
@@ -82,6 +83,7 @@ const Windows = () => {
             <StyledDesktopContainer>
                 <IconsList />
                 <ProgramList />
+                <Menu />
                 <Calendar />
             </StyledDesktopContainer>
             <Taskbar />

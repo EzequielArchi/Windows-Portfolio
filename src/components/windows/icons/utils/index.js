@@ -1,6 +1,6 @@
 import BrowserIcon from "../../../../assets/images/icons/Browser_Icon.png";
 import ConsoleIcon from "../../../../assets/images/icons/Console_Icon.png";
-import ConfigurationIcon from "../../../../assets/images/icons/Configuration_Icon.png";
+import SettingsIcon from "../../../../assets/images/icons/Settings_Icon.png";
 import MailIcon from "../../../../assets/images/icons/Mail_Icon.png";
 
 export const AVAILABLE_ICONS = {
@@ -14,10 +14,10 @@ export const AVAILABLE_ICONS = {
         title: "Console",
         image: ConsoleIcon,
     },
-    configuration: {
-        id: "configuration",
-        title: "Configuration",
-        image: ConfigurationIcon,
+    settings: {
+        id: "settings",
+        title: "Settings",
+        image: SettingsIcon,
     },
     mail: {
         id: "mail",

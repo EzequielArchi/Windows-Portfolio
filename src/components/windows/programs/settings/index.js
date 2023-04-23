@@ -5,12 +5,12 @@ import styled, { css } from "styled-components";
 import { CONFIGURATION_OPTIONS, OPTIONS_TYPES } from "./utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const StyledConfiguration = styled.div`
+const StyledSettings = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
 
-    .configuration-title {
+    .settings-title {
         margin: 5px 0px 20px 5px;
     }
 
@@ -58,21 +58,21 @@ const StyledMenu = styled(ScrollbarContainer)`
     overflow-y: overlay;
 `;
 
-const Configuration = (props) => {
+const Settings = (props) => {
     const [currentMenu, setCurrentMenu] = useState(OPTIONS_TYPES.color);
 
     const optionsArray = Object.keys(CONFIGURATION_OPTIONS);
 
-    const configurationRef = useRef(null);
+    const settingsRef = useRef(null);
     const optionsRef = useRef(null);
     const windowsRef = useRef(null);
 
     const setMobileStyles = (width) => {
         if (width < 768) {
-            configurationRef.current.style.cssText += `flex-direction: column`;
+            settingsRef.current.style.cssText += `flex-direction: column`;
             optionsRef.current.style.cssText += `height: auto; width: 100%;`;
         } else {
-            configurationRef.current.style.cssText += `flex-direction: row`;
+            settingsRef.current.style.cssText += `flex-direction: row`;
             optionsRef.current.style.cssText += `height: 100%; width: 320px`;
         }
     };
@@ -106,9 +106,9 @@ const Configuration = (props) => {
             ref={windowsRef}
             {...props}
         >
-            <StyledConfiguration ref={configurationRef}>
+            <StyledSettings ref={settingsRef}>
                 <StyledOptions ref={optionsRef}>
-                    <span className="configuration-title">Settings</span>
+                    <span className="settings-title">Settings</span>
                     {optionsArray.map((optionId) => {
                         const option = CONFIGURATION_OPTIONS[optionId];
 
@@ -132,9 +132,9 @@ const Configuration = (props) => {
                 <StyledMenu>
                     <MenuComponent />
                 </StyledMenu>
-            </StyledConfiguration>
+            </StyledSettings>
         </Window>
     );
 };
 
-export default Configuration;
+export default Settings;

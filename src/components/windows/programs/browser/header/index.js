@@ -67,7 +67,9 @@ const StyledInputContainer = styled.div`
         position: absolute;
         top: 50%;
         right: 0%;
-        transform: translate(-5px, -50%);
+        width: 40px;
+        border-radius: 45%;
+        transform: translate(0px, -50%);
     }
 
     &:focus-within {
@@ -128,6 +130,7 @@ const BrowserHeader = forwardRef((props, ref) => {
                 className="header-icon"
                 onClick={onBack}
                 disabled={!canGoBack}
+                title="Go to the previous page"
             >
                 <FontAwesomeIcon icon={faArrowLeft} />
             </StyledHeaderButton>
@@ -136,15 +139,16 @@ const BrowserHeader = forwardRef((props, ref) => {
                 className="header-icon"
                 onClick={onForward}
                 disabled={!canGoForward}
+                title="Go to the next page"
             >
                 <FontAwesomeIcon icon={faArrowRight} />
             </StyledHeaderButton>
 
-            <StyledHeaderButton className="header-icon" onClick={onReload}>
+            <StyledHeaderButton className="header-icon" onClick={onReload} title="Reload page">
                 <FontAwesomeIcon icon={faRefresh} />
             </StyledHeaderButton>
 
-            <StyledHeaderButton className="header-icon" onClick={onGoHome}>
+            <StyledHeaderButton className="header-icon" onClick={onGoHome} title="Go to homepage">
                 <FontAwesomeIcon icon={faHome} />
             </StyledHeaderButton>
 
@@ -157,6 +161,7 @@ const BrowserHeader = forwardRef((props, ref) => {
                 <StyledHeaderButton
                     className="header-icon right-icon"
                     onClick={() => handleSearch(searchValue)}
+                    title="Go to page"
                 >
                     <FontAwesomeIcon icon={faArrowRightLong} />
                 </StyledHeaderButton>

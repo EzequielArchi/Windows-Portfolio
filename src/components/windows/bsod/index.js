@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import QRCode from "../../../assets/bsod/QR-Code.png";
+import QRCode from "../../../assets/images/bsod/QR-Code.png";
 
 const StyledBSODContainer = styled.div`
     width: 100vw;
@@ -33,16 +33,7 @@ const StyledSadSmile = styled.span`
         font-size: 80px;
     }
 `;
-const StyledErrorTitle = styled.span`
-    width: 100%;
-    font-size: 30px;
-    white-space: break-spaces;
-
-    @media (max-width: 768px) {
-        font-size: 20px;
-    }
-`;
-const StyledErrorPorcentage = styled.span`
+const StyledErrorText = styled.span`
     width: 100%;
     font-size: 30px;
     white-space: break-spaces;
@@ -109,18 +100,18 @@ const BSOD = () => {
             <StyledError>
                 <StyledSadSmile>:(</StyledSadSmile>
 
-                <StyledErrorTitle>
+                <StyledErrorText>
                     Your PC ran into a problem and needs to refresh the window.
                     We're just collecting some error info (I don't promise we're
                     going to do much with it), and then we'll reflesh for you.
-                </StyledErrorTitle>
+                </StyledErrorText>
 
-                <StyledErrorPorcentage
+                <StyledErrorText
                     ref={porcentageRef}
                     className="notranslate"
                 >
                     0% complete
-                </StyledErrorPorcentage>
+                </StyledErrorText>
 
                 <StyledErrorInformation>
                     <StyledQRCode src={QRCode}/>
@@ -128,7 +119,7 @@ const BSOD = () => {
                         <span>
                             If you call a support person, give them this info:
                         </span>
-                        <span>Stop code: SOMETHING_WENT_WRONG</span>
+                        <span>Stop code: <b className="notranslate">SOMETHING_WENT_WRONG</b></span>
                     </StyledContact>
                 </StyledErrorInformation>
             </StyledError>

@@ -9,7 +9,10 @@ import {
     focusProgram,
     toggleMinimizeProgram,
 } from "../../../store/slices/programs";
-import { toggleCalendar } from "../../../store/slices/popups";
+import {
+    toggleCalendar,
+    toggleWindowsMenu,
+} from "../../../store/slices/popups";
 import { shadeColor } from "../../../common/colorCommonFunctions";
 
 const StyledTaskbar = styled.div`
@@ -31,28 +34,27 @@ const StyledTaskbar = styled.div`
         theme.startAndTaskbar ? `#f5f5f5` : css`var(--windows-text-color)`};
 `;
 
-const StyledWindowsOptions = styled.div`
+const StyledProgramOptions = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
     height: 100%;
     flex: 1;
     gap: 15px;
-    margin-inline: 10px;
 
     .program-icon {
         box-shadow: inset 0px -3px 0px 0px var(--windows-color);
     }
 `;
 
-const StyledWindowsOption = styled.div`
+const StyledOption = styled.div`
     height: 100%;
     flex: 0 1 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     .icon-option {
-        font-size: 25px;
+        font-size: 18px;
     }
 
     .image-option {
@@ -122,11 +124,15 @@ const Taskbar = () => {
         dispatch(toggleCalendar());
     };
 
+    const handleWindowsClick = () => {
+        dispatch(toggleWindowsMenu());
+    };
+
     useLayoutEffect(() => {
         const checkNumberFormat = (number) => {
             return number.padStart(2, "0");
         };
-        
+
         const updateDateTime = () => {
             if (!timeRef.current || !dateRef.current) return;
             const currentDate = new Date();
@@ -136,7 +142,6 @@ const Taskbar = () => {
             let hours = currentDate.getHours();
             let minutes = currentDate.getMinutes();
 
-            
             month = month.toString();
             day = day.toString();
             const ampm = hours >= 12 ? "PM" : "AM";
@@ -154,16 +159,20 @@ const Taskbar = () => {
 
     return (
         <StyledTaskbar maxFocusLevel={maxFocusLevel}>
-            <StyledWindowsOptions>
-                <StyledWindowsOption>
-                    <FontAwesomeIcon icon={faWindows} className="icon-option" />
-                </StyledWindowsOption>
+            <StyledOption
+                id="windows-option-taskbar"
+                style={{ marginRight: "15px" }}
+                onClick={handleWindowsClick}
+            >
+                <FontAwesomeIcon icon={faWindows} className="icon-option" />
+            </StyledOption>
+            <StyledProgramOptions>
                 {currentProgramArray.map((instanceId) => {
                     const { focusLevel, id, isMinimized } =
                         currentPrograms[instanceId];
                     const programImage = AVAILABLE_ICONS[id].image;
                     return (
-                        <StyledWindowsOption
+                        <StyledOption
                             key={instanceId}
                             selected={
                                 !isMinimized && focusLevel === maxFocusLevel
@@ -176,13 +185,13 @@ const Taskbar = () => {
                                 src={programImage}
                                 alt=""
                             />
-                        </StyledWindowsOption>
+                        </StyledOption>
                     );
                 })}
-            </StyledWindowsOptions>
+            </StyledProgramOptions>
             <StyledWindowsDateTime
                 onClick={handleDateTimeClick}
-                id="dateTimeTaskbar"
+                id="date-time-taskbar"
                 className="notranslate"
             >
                 <span ref={timeRef}></span>
