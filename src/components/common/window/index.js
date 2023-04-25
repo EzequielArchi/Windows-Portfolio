@@ -2,6 +2,7 @@ import React, {
     forwardRef,
     useCallback,
     useImperativeHandle,
+    useLayoutEffect,
     useMemo,
     useRef,
     useState,
@@ -37,7 +38,7 @@ const StyledWindow = styled.div`
 const MIN_SIZE = {
     width: 260,
     height: 300,
-}
+};
 
 const getInitialSize = () => {
     return {
@@ -108,6 +109,7 @@ const Window = forwardRef((props, ref) => {
     const isMaximazed = useRef(isWindowMaximazed(initialPosition, initialSize));
     const lastSize = useRef(initialSize);
     const lastPosition = useRef(initialPosition);
+    const initialDragMaximized = useRef(false);
 
     const handleMaximize = useCallback(() => {
         if (isMaximazed.current) {
@@ -194,6 +196,7 @@ const Window = forwardRef((props, ref) => {
     const handleDragStart = useCallback(
         (initialPosition) => {
             disabledPointerEvents();
+            initialDragMaximized.current = isMaximazed.current;
             if (onDragStart) onDragStart(initialPosition);
         },
         [onDragStart]
@@ -206,6 +209,10 @@ const Window = forwardRef((props, ref) => {
             if (overflow) {
                 const { x, y } = endPosition;
                 setPosition({ x, y });
+
+                if (initialDragMaximized.current && "ontouchstart" in window) {
+                    isMaximazed.current = true;
+                }
             }
 
             if (onDragEnd) onDragEnd(endPosition);
@@ -286,6 +293,47 @@ const Window = forwardRef((props, ref) => {
         ]
     );
 
+    useLayoutEffect(() => {
+        const handleWindowResize = () => {
+            if (isMaximazed.current) {
+                setPosition({ x: 0, y: 0 });
+
+                const maximizedSize = {
+                    width: window.innerWidth,
+                    height: draggableRef.current.parentElement.clientHeight,
+                };
+                setSize(maximizedSize);
+                resizerRef.current.updateSize(maximizedSize);
+
+                if (onMaximize) onMaximize();
+            } else {
+                draggableRef.current.checkOverflow();
+            }
+        };
+
+        window.addEventListener("resize", handleWindowResize, false);
+        return () => {
+            window.removeEventListener("resize", handleWindowResize, false);
+        };
+    }, [onMaximize]);
+
+    const overflowOffsetMobile = {
+        top: size.height,
+        right: size.width,
+        bottom: size.height,
+        left: size.width,
+    };
+
+    const overflowOffsetWeb = {
+        top: size.height,
+        right: 50,
+        bottom: WINDOW_HEADER_HEIGHT,
+        left: 130,
+    };
+
+    const overflowOffset =
+        "ontouchstart" in window ? overflowOffsetMobile : overflowOffsetWeb;
+
     return (
         <Draggable
             ref={draggableRef}
@@ -296,12 +344,7 @@ const Window = forwardRef((props, ref) => {
             onDragEnd={handleDragEnd}
             style={draggableStyle}
             preventOverflow={true}
-            overflowOffset={{
-                top: size.height,
-                right: 50,
-                bottom: WINDOW_HEADER_HEIGHT,
-                left: 130,
-            }}
+            overflowOffset={overflowOffset}
         >
             <StyledWindowContainer onMouseDown={handleWindowMouseDown}>
                 <Resizer

@@ -22,7 +22,7 @@ const StyledResizerContainer = styled.div`
 
         @media (max-width: 768px) {
             top: -10px;
-            height: 10px;
+            height: 11px;
         }
     }
 
@@ -50,7 +50,7 @@ const StyledResizerContainer = styled.div`
 
         @media (max-width: 768px) {
             right: -10px;
-            width: 10px;
+            width: 11px;
         }
     }
 
@@ -78,7 +78,7 @@ const StyledResizerContainer = styled.div`
 
         @media (max-width: 768px) {
             bottom: -10px;
-            height: 10px;
+            height: 11px;
         }
     }
 
@@ -106,7 +106,7 @@ const StyledResizerContainer = styled.div`
 
         @media (max-width: 768px) {
             left: -10px;
-            width: 10px;
+            width: 11px;
         }
     }
 
@@ -153,13 +153,16 @@ const Resizer = memo(
         useImperativeHandle(ref, () => ({
             ...reziserRef,
             updateSize: ({ width, height }) => {
-                reziserRef.current.style.cssText += `
-                width: ${width}px;
-                height: ${height}px;
-            `;
+                if (minSize.width <= width && minSize.height <= height) {
+                    reziserRef.current.style.cssText += `
+                    width: ${width}px;
+                    height: ${height}px;
+                    `;
+                }
             },
             getCurrentSize: () => {
-                const { width, height } = reziserRef.current.getBoundingClientRect();
+                const { width, height } =
+                    reziserRef.current.getBoundingClientRect();
 
                 return { width, height };
             },
@@ -178,18 +181,21 @@ const Resizer = memo(
 
             const resizerRect = domResizer.getBoundingClientRect();
             const domContainerParent = domContainer.offsetParent;
-            const containerParentRect = domContainerParent.getBoundingClientRect();
+            const containerParentRect =
+                domContainerParent.getBoundingClientRect();
 
-            RESIZER_PROPERTIES[side].forEach(({ anchorSide, axis, dimension }) => {
-                if (["left", "top"].includes(anchorSide)) {
-                    containerRef.current.style[anchorSide] = `${0}px`;
-                } else {
-                    containerRef.current.style[anchorSide] = `${
-                        containerParentRect[dimension] -
-                        (containerRect[anchorSide] - containerRect[axis])
-                    }px`;
+            RESIZER_PROPERTIES[side].forEach(
+                ({ anchorSide, axis, dimension }) => {
+                    if (["left", "top"].includes(anchorSide)) {
+                        containerRef.current.style[anchorSide] = `${0}px`;
+                    } else {
+                        containerRef.current.style[anchorSide] = `${
+                            containerParentRect[dimension] -
+                            (containerRect[anchorSide] - containerRect[axis])
+                        }px`;
+                    }
                 }
-            });
+            );
 
             const parentOffsetLeft = domResizer.offsetLeft;
             const parentOffsetTop = domResizer.offsetTop;
@@ -205,7 +211,10 @@ const Resizer = memo(
                 y,
             };
             if (onResizingStart)
-                onResizingStart({ width: resizerRect.width, height: resizerRect.height });
+                onResizingStart({
+                    width: resizerRect.width,
+                    height: resizerRect.height,
+                });
         };
 
         useEffect(() => {
@@ -218,7 +227,8 @@ const Resizer = memo(
 
             const handleMove = (event) => {
                 if (previusPosition.current) {
-                    let { x: eventX, y: eventY } = getCoordinatesOfDomEvent(event);
+                    let { x: eventX, y: eventY } =
+                        getCoordinatesOfDomEvent(event);
 
                     const x = eventX - parentOffsetLeft;
                     const y = eventY - parentOffsetTop;
@@ -236,9 +246,11 @@ const Resizer = memo(
                     const containerRect = domContainer.getBoundingClientRect();
                     const resizerRect = domResizer.getBoundingClientRect();
 
-                    RESIZER_PROPERTIES[resizerSide.current].forEach(({ anchorSide }) => {
-                        domContainer.style[anchorSide] = "";
-                    });
+                    RESIZER_PROPERTIES[resizerSide.current].forEach(
+                        ({ anchorSide }) => {
+                            domContainer.style[anchorSide] = "";
+                        }
+                    );
 
                     domContainer.style.transform = `translate(${containerRect.x}px, ${containerRect.y}px)`;
 
@@ -252,7 +264,10 @@ const Resizer = memo(
                     };
                     mousePosition.current = null;
                     if (onResizingEnd)
-                        onResizingEnd({ width: resizerRect.width, height: resizerRect.height });
+                        onResizingEnd({
+                            width: resizerRect.width,
+                            height: resizerRect.height,
+                        });
                 }
             };
 
@@ -281,16 +296,21 @@ const Resizer = memo(
                         if (
                             deltaSize.current[axis] * orientation > 0 &&
                             mousePosition.current[axis] * orientation >
-                                resizerRect[OPPOSITE_SIDE[anchorSide]] * orientation
+                                resizerRect[OPPOSITE_SIDE[anchorSide]] *
+                                    orientation
                         ) {
                             return;
                         }
-                        resizerRect[dimension] += deltaSize.current[axis] * orientation;
+                        resizerRect[dimension] +=
+                            deltaSize.current[axis] * orientation;
                     }
                 );
 
                 if (onResizing)
-                    onResizing({ width: resizerRect.width, height: resizerRect.height });
+                    onResizing({
+                        width: resizerRect.width,
+                        height: resizerRect.height,
+                    });
 
                 deltaSize.current = {
                     x: 0,
@@ -319,8 +339,12 @@ const Resizer = memo(
                 />
                 <StyledResizer
                     className="no-drag top-right"
-                    onMouseDown={(e) => handleStart(e, "top-right", "ne-resize")}
-                    onTouchStart={(e) => handleStart(e, "top-right", "ne-resize")}
+                    onMouseDown={(e) =>
+                        handleStart(e, "top-right", "ne-resize")
+                    }
+                    onTouchStart={(e) =>
+                        handleStart(e, "top-right", "ne-resize")
+                    }
                 />
                 <StyledResizer
                     className="no-drag right"
@@ -329,8 +353,12 @@ const Resizer = memo(
                 />
                 <StyledResizer
                     className="no-drag bottom-right"
-                    onMouseDown={(e) => handleStart(e, "bottom-right", "se-resize")}
-                    onTouchStart={(e) => handleStart(e, "bottom-right", "se-resize")}
+                    onMouseDown={(e) =>
+                        handleStart(e, "bottom-right", "se-resize")
+                    }
+                    onTouchStart={(e) =>
+                        handleStart(e, "bottom-right", "se-resize")
+                    }
                 />
                 <StyledResizer
                     className="no-drag bottom"
@@ -339,8 +367,12 @@ const Resizer = memo(
                 />
                 <StyledResizer
                     className="no-drag bottom-left"
-                    onMouseDown={(e) => handleStart(e, "bottom-left", "sw-resize")}
-                    onTouchStart={(e) => handleStart(e, "bottom-left", "sw-resize")}
+                    onMouseDown={(e) =>
+                        handleStart(e, "bottom-left", "sw-resize")
+                    }
+                    onTouchStart={(e) =>
+                        handleStart(e, "bottom-left", "sw-resize")
+                    }
                 />
                 <StyledResizer
                     className="no-drag left"
@@ -350,7 +382,9 @@ const Resizer = memo(
                 <StyledResizer
                     className="no-drag top-left"
                     onMouseDown={(e) => handleStart(e, "top-left", "nw-resize")}
-                    onTouchStart={(e) => handleStart(e, "top-left", "nw-resize")}
+                    onTouchStart={(e) =>
+                        handleStart(e, "top-left", "nw-resize")
+                    }
                 />
                 {children}
             </StyledResizerContainer>

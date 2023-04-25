@@ -6,9 +6,7 @@ import { getCoordinatesOfDomEvent } from "../../../common/eventsCommonFunctions"
 const StyledSelector = styled.div`
     visibility: hidden;
     position: absolute;
-    border-width: 1px;
-    border-style: solid;
-    border-color: ${({ borderColor }) => borderColor};
+    box-shadow: inset 0px 0px 0px 1px ${({ borderColor }) => borderColor};
     background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 

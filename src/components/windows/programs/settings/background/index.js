@@ -91,7 +91,7 @@ const Background = () => {
     const handleCustomColorChange = (event) => {
         const color = event.target.value;
 
-        const hexColorRegex = /^([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+        const hexColorRegex = /^([0-9a-fA-F]{6})$/;
 
         if (!hexColorRegex.test(color)) {
             setCustomColorValue(color);
