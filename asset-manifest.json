@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Windows-Portfolio/static/css/main.d097374e.css",
-    "main.js": "/Windows-Portfolio/static/js/main.0ed1120e.js",
+    "main.css": "/Windows-Portfolio/static/css/main.a0e0622d.css",
+    "main.js": "/Windows-Portfolio/static/js/main.da7808e0.js",
     "static/media/Handsome_Man.png": "/Windows-Portfolio/static/media/Handsome_Man.6f1734195021b600ff86.png",
     "static/media/Browser_Icon.png": "/Windows-Portfolio/static/media/Browser_Icon.fe74ad5a0c8e3484a1e4.png",
     "static/media/Mail_Icon.png": "/Windows-Portfolio/static/media/Mail_Icon.47e4956704e76234da9b.png",
     "index.html": "/Windows-Portfolio/index.html",
-    "main.d097374e.css.map": "/Windows-Portfolio/static/css/main.d097374e.css.map",
-    "main.0ed1120e.js.map": "/Windows-Portfolio/static/js/main.0ed1120e.js.map"
+    "main.a0e0622d.css.map": "/Windows-Portfolio/static/css/main.a0e0622d.css.map",
+    "main.da7808e0.js.map": "/Windows-Portfolio/static/js/main.da7808e0.js.map"
   },
   "entrypoints": [
-    "static/css/main.d097374e.css",
-    "static/js/main.0ed1120e.js"
+    "static/css/main.a0e0622d.css",
+    "static/js/main.da7808e0.js"
   ]
 }
