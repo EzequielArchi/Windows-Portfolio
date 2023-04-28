@@ -8,6 +8,10 @@ const StyledBackgroundSettings = styled.div`
     max-width: 340px;
     margin-left: 30px;
 
+    p {
+        user-select: none;
+    }
+    
     .title {
         margin-top: 10px;
         font-size: 26px;

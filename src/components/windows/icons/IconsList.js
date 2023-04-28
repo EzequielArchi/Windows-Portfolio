@@ -43,6 +43,7 @@ const IconsList = memo(() => {
     const dispatch = useDispatch();
 
     const handleSelectionStart = () => {
+        document.activeElement.blur();
         dispatch(deselectAllIcons());
     };
 
@@ -62,10 +63,11 @@ const IconsList = memo(() => {
 
     return (
         <StyledIconContainer ref={containerRef}>
-            {AVAILABLE_ICONS_ARRAY.map((id) => (
+            {AVAILABLE_ICONS_ARRAY.map((id, index) => (
                 <GenericIcon
                     key={id}
                     ref={(ref) => setIconRef(id, ref)}
+                    index={index}
                     {...AVAILABLE_ICONS[id]}
                 />
             ))}

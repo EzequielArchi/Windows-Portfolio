@@ -19,6 +19,7 @@ const StyledWindowHeader = styled.div`
 
     display: flex;
     justify-content: flex-end;
+    user-select: none;
 `;
 
 const StyledWindowOptions = styled.div`
@@ -27,7 +28,7 @@ const StyledWindowOptions = styled.div`
     align-items: flex-start;
 `;
 
-const StyledWindowOption = styled.div`
+const StyledWindowOption = styled.button`
     width: 40px;
     height: 26px;
     display: flex;
@@ -36,9 +37,18 @@ const StyledWindowOption = styled.div`
     transition: background-color 0.2s;
     font-size: ${({ fontSize }) => fontSize};
     color: #ffffff;
+    border: none;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
     cursor: default;
 
     :hover {
+        background-color: ${({ hoverBackground }) => hoverBackground};
+    }
+
+    &:focus {
+        outline: none;
+        border: none;
         background-color: ${({ hoverBackground }) => hoverBackground};
     }
 `;

@@ -53,6 +53,7 @@ const StyledOption = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
     .icon-option {
         font-size: 18px;
     }
@@ -67,6 +68,12 @@ const StyledOption = styled.div`
         .icon-option {
             color: ${({ theme }) => shadeColor(theme.windowsColor, 60)};
         }
+    }
+    
+    &:focus {
+        outline: none;
+        border: none;
+        background-color: #cccccc40;
     }
 
     ${({ selected }) =>
@@ -88,6 +95,12 @@ const StyledWindowsDateTime = styled.div`
     user-select: none;
 
     :hover {
+        background-color: #cccccc40;
+    }
+
+    :focus {
+        outline: none;
+        border: none;
         background-color: #cccccc40;
     }
 `;
@@ -157,12 +170,15 @@ const Taskbar = () => {
         updateDateTime();
     }, []);
 
+    const programLength = Object.keys(AVAILABLE_ICONS).length;
+
     return (
         <StyledTaskbar maxFocusLevel={maxFocusLevel}>
             <StyledOption
                 id="windows-option-taskbar"
                 style={{ marginRight: "15px" }}
                 onClick={handleWindowsClick}
+                tabIndex={programLength + 1}
             >
                 <FontAwesomeIcon icon={faWindows} className="icon-option" />
             </StyledOption>
@@ -189,7 +205,7 @@ const Taskbar = () => {
                     );
                 })}
             </StyledProgramOptions>
-            <StyledWindowsDateTime
+            <StyledWindowsDateTime tabIndex={programLength + 2}
                 onClick={handleDateTimeClick}
                 id="date-time-taskbar"
                 className="notranslate"

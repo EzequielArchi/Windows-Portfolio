@@ -27,7 +27,7 @@ const StyledMailOptions = styled.div`
     margin-bottom: 10px;
 `;
 
-const StyledMailOption = styled.div`
+const StyledMailOption = styled.button`
     height: 100%;
     padding: 10px;
     display: flex;
@@ -35,8 +35,20 @@ const StyledMailOption = styled.div`
     align-items: center;
     gap: 5px;
     cursor: default;
-
+    border: none;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    color: var(--windows-text-color);
+    font: unset;
+    
     &:hover {
+        background-color: ${({ theme }) =>
+            theme.darkTheme ? "#cccccc60" : "#00000020"};
+    }
+
+    &:focus {
+        outline: none;
+        border: none;
         background-color: ${({ theme }) =>
             theme.darkTheme ? "#cccccc60" : "#00000020"};
     }

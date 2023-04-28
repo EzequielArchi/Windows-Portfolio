@@ -29,12 +29,12 @@ const StyledHeaderButton = styled.button`
     height: 30px;
     width: 30px;
     border: none;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     font-size: 18px;
     border-radius: 50%;
     transition: background-color 0.5s;
-    background-color: transparent;
-    -webkit-tap-highlight-color: transparent;
 
     &:not([disabled]):hover {
         background-color: ${({ theme }) =>
@@ -43,6 +43,13 @@ const StyledHeaderButton = styled.button`
     &:disabled {
         cursor: auto;
         color: #cccccc;
+    }
+
+    &:focus {
+        outline: none;
+        border: none;
+        background-color: ${({ theme }) =>
+            theme.darkTheme ? "#cccccc60" : "#00000020"};
     }
 `;
 

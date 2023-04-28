@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { addProgram } from "../../../store/slices/programs";
 import { selectIcons } from "../../../store/slices/icons";
 
-const StyledIconContainer = styled.div`
+const StyledIcon = styled.div`
     display: relative;
     display: flex;
     flex-direction: column;
@@ -13,16 +13,29 @@ const StyledIconContainer = styled.div`
     width: 80px;
     height: 80px;
     padding: 5px;
-    background-color: ${({ isSelected }) => isSelected && "#acc8d780"};
+    user-select: none;
+    outline: none;
+    border: none;
+
     ${({ isSelected }) =>
-        isSelected &&
-        css`
-            box-shadow: inset 0px 0px 0px 1px #acc8d7bb;
-        `}
-    :hover {
-        background-color: #acc8d780;
-        box-shadow: inset 0px 0px 0px 1px #acc8d7bb;
-    }
+        isSelected
+            ? css`
+                  box-shadow: inset 0px 0px 0px 1px #acc8d7bb;
+                  background-color: #acc8d780;
+              `
+            : css`
+                  :hover {
+                      background-color: #acc8d760;
+                      box-shadow: inset 0px 0px 0px 1px #acc8d7a0;
+                  }
+
+                  :focus {
+                      outline: none;
+                      border: none;
+                      background-color: #acc8d760;
+                      box-shadow: inset 0px 0px 0px 1px #acc8d7a0;
+                  }
+              `}
 `;
 
 const StyledImg = styled.img`
@@ -42,14 +55,29 @@ const StyledTitle = styled.div`
 `;
 
 const GenericIcon = forwardRef((props, ref) => {
-    const { id, image, title } = props;
+    const { id, image, title, index } = props;
 
-    const isSelected = useSelector(({ icons }) => icons.selected[id]);
+    const selectedIcons = useSelector(({ icons }) => icons.selected);
+    const isSelected = selectedIcons[id];
 
     const dispatch = useDispatch();
 
-    const handleSelect = () => {
-        dispatch(selectIcons([id]));
+    const handleSelect = (event) => {
+        window.focus();
+        document.activeElement.blur();
+        if (event.ctrlKey) {
+            const selectedIconArray = Object.keys(selectedIcons);
+            if (isSelected) {
+                const newSelectedIcon = selectedIconArray.filter(
+                    (icon) => icon !== id
+                );
+                dispatch(selectIcons(newSelectedIcon));
+            } else {
+                dispatch(selectIcons([...selectedIconArray, id]));
+            }
+        } else {
+            dispatch(selectIcons([id]));
+        }
     };
 
     const openProgram = () => {
@@ -58,17 +86,19 @@ const GenericIcon = forwardRef((props, ref) => {
     };
 
     return (
-        <StyledIconContainer
+        <StyledIcon
             ref={ref}
             isSelected={isSelected}
             onMouseDown={(e) => e.preventDefault()}
             onClick={handleSelect}
             onTouchStart={openProgram}
             onDoubleClick={openProgram}
+            tabIndex={index + 1}
+            id={id}
         >
             <StyledImg src={image} alt="" />
             <StyledTitle>{title}</StyledTitle>
-        </StyledIconContainer>
+        </StyledIcon>
     );
 });
 

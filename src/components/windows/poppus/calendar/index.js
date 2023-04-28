@@ -49,7 +49,7 @@ const StyledMonth = styled.div`
     font-size: 14px;
 `;
 
-const StyledArrowButton = styled.div`
+const StyledArrow = styled.div`
     display: inline;
     cursor: pointer;
     font-size: 18px;
@@ -259,18 +259,18 @@ const Calendar = (props) => {
                         {months[date.getMonth()]} {date.getFullYear()}
                     </StyledMonth>
                     <div>
-                        <StyledArrowButton
+                        <StyledArrow
                             onClick={handlePrevMonthClick}
                             title="Previous month"
                         >
                             <FontAwesomeIcon icon={faChevronUp} />
-                        </StyledArrowButton>
-                        <StyledArrowButton
+                        </StyledArrow>
+                        <StyledArrow
                             onClick={HandleNextMonthClick}
                             title="Next month"
                         >
                             <FontAwesomeIcon icon={faChevronDown} />
-                        </StyledArrowButton>
+                        </StyledArrow>
                     </div>
                 </StyledHeader>
                 <StyledWeekdays>

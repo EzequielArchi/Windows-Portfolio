@@ -8,7 +8,8 @@ import Select from "../../../../common/inputs/select";
 const StyledColorSettings = styled.div`
     max-width: 340px;
     margin-left: 30px;
-
+    user-select: none;
+    
     .title {
         margin-top: 10px;
         font-size: 26px;

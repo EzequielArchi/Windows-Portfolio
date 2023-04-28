@@ -156,6 +156,7 @@ const Window = forwardRef((props, ref) => {
     const handleWindowMouseDown = (event) => {
         if (["close-window", "minimize-window"].includes(event.target.id))
             return;
+        window.focus();
         dispatch(focusProgram(instanceId));
     };
 
@@ -195,6 +196,7 @@ const Window = forwardRef((props, ref) => {
 
     const handleDragStart = useCallback(
         (initialPosition) => {
+            window.focus();
             disabledPointerEvents();
             initialDragMaximized.current = isMaximazed.current;
             if (onDragStart) onDragStart(initialPosition);
@@ -222,6 +224,7 @@ const Window = forwardRef((props, ref) => {
 
     const handleResizingStart = useCallback(
         (initialSize) => {
+            window.focus();
             disabledPointerEvents();
             dispatch(focusProgram(instanceId));
 
@@ -294,6 +297,12 @@ const Window = forwardRef((props, ref) => {
     );
 
     useLayoutEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.keyCode === 27 && isFocused) {
+                handleClose();
+            } 
+        };
+
         const handleWindowResize = () => {
             if (isMaximazed.current) {
                 setPosition({ x: 0, y: 0 });
@@ -312,10 +321,12 @@ const Window = forwardRef((props, ref) => {
         };
 
         window.addEventListener("resize", handleWindowResize, false);
+        window.addEventListener("keydown", handleKeyDown);
         return () => {
             window.removeEventListener("resize", handleWindowResize, false);
+            window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [onMaximize]);
+    }, [onMaximize, isFocused, handleClose]);
 
     const overflowOffsetMobile = {
         top: size.height,

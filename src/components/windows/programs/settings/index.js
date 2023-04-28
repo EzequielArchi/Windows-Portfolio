@@ -29,19 +29,31 @@ const StyledOptions = styled.div`
         theme.darkTheme ? "#1f1f1f" : "#e6e6e6"};
 `;
 
-const StyledOption = styled.div`
+const StyledOption = styled.button`
     width: 100%;
     height: 50px;
     display: flex;
     align-items: center;
     gap: 15px;
     cursor: default;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    background-color: transparent;
+    color: var(--windows-text-color);
+    font: unset;
+    text-align: start;
 
     .icon {
         font-size: 16px;
     }
 
     :hover {
+        background-color: #cccccc80;
+    }
+
+    :focus {
+        outline: none;
+        border: none;
         background-color: #cccccc80;
     }
 `;
