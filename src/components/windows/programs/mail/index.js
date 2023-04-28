@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
-import Window from "../../../util/window";
+import Window from "../../../common/window";
 import ScrollbarContainer from "../../../../styles/ScrollbarContainer";
 import styled, { css } from "styled-components";
 import MailContent from "./mailContent";
@@ -52,7 +52,7 @@ const StyledDateLabel = styled.div`
     font-weight: bold;
 `;
 
-const StyledEmail = styled.div`
+const StyledEmail = styled.button`
     display: flex;
     width: 100%;
     padding-top: 15px;
@@ -62,13 +62,25 @@ const StyledEmail = styled.div`
     box-sizing: border-box;
     background-color: ${({ theme }) =>
         theme.darkTheme ? "#101010" : "#e6e6e6"};
+        
     cursor: default;
-
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    color: var(--windows-text-color);
+    font: unset;
+    text-align: start;
+    
     .icon {
         font-size: 16px;
     }
 
     :hover {
+        background-color: #cccccc60;
+    }
+
+    &:focus {
+        outline: none;
+        border: none;
         background-color: #cccccc60;
     }
 

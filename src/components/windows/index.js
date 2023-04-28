@@ -6,29 +6,12 @@ import { faWindows } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IconsList from "./icons/IconsList";
 import Calendar from "./poppus/calendar";
+import { useSelector } from "react-redux";
+import BSOD from "./bsod";
+import { NAVBAR_HEIGHT } from "../../util/globalConstans";
+import Menu from "./poppus/menu";
 
 const StyledWindowsHome = styled.div`
-    --background-color: ${({ theme }) => theme.desktopColor};
-    --background-color-transparent: ${({ theme }) => `${theme.desktopColor}E6`};
-
-    --windows-color: ${({ theme }) => theme.windowsColor};
-
-    --windows-section-color: ${({ theme }) =>
-        theme.darkTheme
-            ? theme.darkThemeBackgroundColor
-            : theme.lightThemeBackgroundColor};
-
-    --windows-section-inverted-color: ${({ theme }) =>
-        theme.darkTheme
-            ? theme.lightThemeBackgroundColor
-            : theme.darkThemeBackgroundColor};
-
-    --windows-text-color: ${({ theme }) =>
-        theme.darkTheme ? theme.darkThemeTextColor : theme.lightThemeTextColor};
-
-    --windows-text-inverted-color: ${({ theme }) =>
-        theme.darkTheme ? theme.lightThemeTextColor : theme.darkThemeTextColor};
-
     width: 100%;
     height: 100%;
     background: linear-gradient(
@@ -61,10 +44,16 @@ const StyledWindowsLogo = styled.div`
 const StyledDesktopContainer = styled.div`
     position: relative;
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100% - ${NAVBAR_HEIGHT}px);
 `;
 
 const Windows = () => {
+    const fatalError = useSelector(({ programs }) => programs.fatalError);
+
+    if (fatalError) {
+        return <BSOD />;
+    }
+
     return (
         <StyledWindowsHome>
             <StyledWindowsLogo>
@@ -73,6 +62,7 @@ const Windows = () => {
             <StyledDesktopContainer>
                 <IconsList />
                 <ProgramList />
+                <Menu />
                 <Calendar />
             </StyledDesktopContainer>
             <Taskbar />

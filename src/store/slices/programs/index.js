@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { uuid } from "../../../utils/uuid";
+import { uuid } from "../../../common/uuid";
 
-const initialState = { currentPrograms: {} };
+const initialState = { fatalError: false, currentPrograms: {} };
 
 const programsSlice = createSlice({
     name: "programs",
@@ -59,6 +59,11 @@ const programsSlice = createSlice({
 
             program.isMinimized = !program.isMinimized;
         },
+        setFatalError(state, action) {
+            const newFatalErrorState = action.payload;
+
+            state.fatalError = newFatalErrorState;
+        },
     },
 });
 
@@ -68,6 +73,7 @@ export const {
     focusProgram,
     defocusProgram,
     toggleMinimizeProgram,
+    setFatalError,
 } = programsSlice.actions;
 
 export default programsSlice.reducer;

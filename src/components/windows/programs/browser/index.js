@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
-import Window from "../../../util/window";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import Window from "../../../common/window";
 import styled from "styled-components";
 import BrowserHeader from "./header";
+import { useDispatch } from "react-redux";
+import { deleteProgram } from "../../../../store/slices/programs";
 
 const StyledWindowCover = styled.div`
     position: absolute;
@@ -17,6 +19,11 @@ const StyledBrowser = styled.div`
     height: 100%;
 `;
 
+const StyledIframe = styled.iframe`
+    user-select: none;
+    border: none;
+`;
+
 const HOME_URL = "https://www.google.com/search?igu=1";
 
 const Browser = (props) => {
@@ -25,17 +32,19 @@ const Browser = (props) => {
     const [history, setHistory] = useState([src]);
     const [pointer, setPointer] = useState(0);
 
+    const dispatch = useDispatch();
+
     const iframeRef = useRef(null);
     const headerRef = useRef(null);
 
     const { instanceId, focusLevel, maxFocusLevel } = rest;
 
-    const onBack = () => {
+    const onBack = useCallback(() => {
         const newPointer = pointer - 1;
         setPointer(newPointer);
 
         redirectToPage(history[newPointer]);
-    };
+    },[pointer, history]);
 
     const onForward = () => {
         const newPointer = pointer + 1;
@@ -71,6 +80,19 @@ const Browser = (props) => {
         headerRef.current.setSearchUrl(url);
     };
 
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.data.code === "shutDown") {
+                dispatch(deleteProgram(instanceId));
+            }
+        };
+
+        window.addEventListener("message", handleMessage);
+        return () => {
+            window.removeEventListener("message", handleMessage);
+        };
+    }, [dispatch, instanceId]);
+
     return (
         <Window {...rest}>
             <StyledBrowser>
@@ -85,7 +107,7 @@ const Browser = (props) => {
                     initPage={history[0]}
                     ref={headerRef}
                 />
-                <iframe
+                <StyledIframe
                     ref={iframeRef}
                     id={instanceId}
                     width="100%"
@@ -93,7 +115,6 @@ const Browser = (props) => {
                     src={src}
                     title="Browser"
                     allow="autoplay"
-                    style={{ border: "none" }}
                 />
             </StyledBrowser>
             {maxFocusLevel !== focusLevel && <StyledWindowCover />}

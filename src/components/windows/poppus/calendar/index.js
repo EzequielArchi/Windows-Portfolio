@@ -3,11 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useLayoutEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import Clock from "./clock";
-import ClickAwayListener from "../../../util/clickAwayListener";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCalendar } from "../../../../store/slices/popups";
-import Popup from "../GenericPopup";
-import { shadeColor } from "../../../../utils/colorCommunFunctions";
+import Popup from "../../../common/popup";
+import { shadeColor } from "../../../../common/colorCommonFunctions";
 
 const StyledCalendar = styled.div`
     display: flex;
@@ -50,7 +49,7 @@ const StyledMonth = styled.div`
     font-size: 14px;
 `;
 
-const StyledArrowButton = styled.div`
+const StyledArrow = styled.div`
     display: inline;
     cursor: pointer;
     font-size: 18px;
@@ -114,7 +113,10 @@ const StyledDay = styled.div`
 
     &:hover {
         box-shadow: 0px 0px 0px 1px
-            ${({ theme }) => css`var(--windows-section-inverted-color)`};
+            ${({ theme }) =>
+                theme.startAndTaskbar
+                    ? "#ffffff"
+                    : css`var(--windows-section-inverted-color)`};
     }
 
     &.disabled {
@@ -227,7 +229,7 @@ const Calendar = (props) => {
     };
 
     const handleClickAway = (event) => {
-        if (event.target.closest("#dateTimeTaskbar")) return;
+        if (event.target.closest("#date-time-taskbar")) return;
         if (showCalendar) dispatch(toggleCalendar());
     };
 
@@ -245,33 +247,39 @@ const Calendar = (props) => {
     }, [dateDay]);
 
     return (
-        <Popup show={showCalendar} style={{ bottom: 0, right: 0 }}>
-            <ClickAwayListener onClickAway={handleClickAway}>
-                <StyledCalendar>
-                    <Clock onDateClick={handleDateClick} />
-                    <StyledHeader>
-                        <StyledMonth>
-                            {months[date.getMonth()]} {date.getFullYear()}
-                        </StyledMonth>
-                        <div>
-                            <StyledArrowButton onClick={handlePrevMonthClick}>
-                                <FontAwesomeIcon icon={faChevronUp} />
-                            </StyledArrowButton>
-                            <StyledArrowButton onClick={HandleNextMonthClick}>
-                                <FontAwesomeIcon icon={faChevronDown} />
-                            </StyledArrowButton>
-                        </div>
-                    </StyledHeader>
-                    <StyledWeekdays>
-                        {weekdays.map((weekday) => (
-                            <StyledWeekday key={weekday}>
-                                {weekday}
-                            </StyledWeekday>
-                        ))}
-                    </StyledWeekdays>
-                    <StyledDays>{renderDays()}</StyledDays>
-                </StyledCalendar>
-            </ClickAwayListener>
+        <Popup
+            show={showCalendar}
+            style={{ bottom: 0, right: 0 }}
+            onClickAway={handleClickAway}
+        >
+            <StyledCalendar className="notranslate">
+                <Clock onDateClick={handleDateClick} />
+                <StyledHeader>
+                    <StyledMonth>
+                        {months[date.getMonth()]} {date.getFullYear()}
+                    </StyledMonth>
+                    <div>
+                        <StyledArrow
+                            onClick={handlePrevMonthClick}
+                            title="Previous month"
+                        >
+                            <FontAwesomeIcon icon={faChevronUp} />
+                        </StyledArrow>
+                        <StyledArrow
+                            onClick={HandleNextMonthClick}
+                            title="Next month"
+                        >
+                            <FontAwesomeIcon icon={faChevronDown} />
+                        </StyledArrow>
+                    </div>
+                </StyledHeader>
+                <StyledWeekdays>
+                    {weekdays.map((weekday) => (
+                        <StyledWeekday key={weekday}>{weekday}</StyledWeekday>
+                    ))}
+                </StyledWeekdays>
+                <StyledDays>{renderDays()}</StyledDays>
+            </StyledCalendar>
         </Popup>
     );
 };

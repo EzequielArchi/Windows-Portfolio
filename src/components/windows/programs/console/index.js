@@ -1,15 +1,22 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import Window from "../../../util/window";
+import styled, { ThemeContext } from "styled-components";
+import Window from "../../../common/window";
 import { COMMNADS, FILE_SYSTEM } from "./utils";
-import { addProgram, deleteProgram } from "../../../../store/slices/programs";
+import {
+    addProgram,
+    deleteProgram,
+    setFatalError,
+} from "../../../../store/slices/programs";
 import { useDispatch } from "react-redux";
 import { AVAILABLE_PROGRAMS } from "../utils";
 import { ThemeModifierContext } from "../../../../App";
+import { requestFullScreen } from "../../../../common/eventsCommonFunctions";
 
 const StyledConsole = styled.div`
     width: 100%;
     min-height: 100%;
+    padding-bottom: 15px;
+    box-sizing: border-box;
     color: #ffffff;
     font-family: Consolas, monaco, monospace;
     font-size: 14px;
@@ -18,7 +25,9 @@ const StyledConsole = styled.div`
 `;
 
 const StyledOutput = styled.div`
+    width: 100%;
     pre {
+        white-space: break-spaces;
         margin: 0 0 15px 0;
     }
 `;
@@ -65,10 +74,24 @@ function Console(props) {
     const [historyPointer, setHistotyPointer] = useState(-1);
     const [directoriesPath, setDirectoriesPath] = useState([]);
 
-    const timeoutConsole = useRef(null);
-    const hasContactedNeo = useRef(false);
-
     const windowRef = useRef(null);
+
+    const timeoutMatrix = useRef(null);
+    const hasContactedNeo = useRef(false);
+    const needsToBeRickrolled = useRef(false);
+
+    const themeContext = useContext(ThemeContext);
+
+    const handleWindowClose = () => {
+        if (needsToBeRickrolled.current) {
+            dispatch(
+                addProgram({
+                    id: "browser",
+                    src: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
+                })
+            );
+        }
+    };
 
     const printPath = (directory) => {
         return `C:\\${directory.join("\\")}`;
@@ -138,7 +161,8 @@ function Console(props) {
     const handleColorCommand = (args) => {
         const hexColorRegex = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
-        const type = args[0] ?? "";
+        let type = args[0] ?? "";
+        type = type.toLowerCase();
         if (!["background", "text"].includes(type))
             return "The entered type is invalid.";
 
@@ -184,6 +208,41 @@ function Console(props) {
         const dayOfMonth = String(now.getDate()).padStart(2, "0");
         const year = now.getFullYear();
         return `The current date is: ${dayOfWeek}. ${month}/${dayOfMonth}/${year}`;
+    };
+
+    const handleDelCommand = (path) => {
+        if (!path) {
+            return "The command syntax is not correct.";
+        }
+
+        const relativeDirectoriesPath = getPathFromString(
+            path,
+            directoriesPath
+        );
+
+        if (relativeDirectoriesPath === null) {
+            return "The system cannot find the path specified.";
+        }
+
+        const essentialFiles = ["Windows", "System32", "Important Things.dll"];
+
+        const fatalError =
+            relativeDirectoriesPath.length === 0 ||
+            essentialFiles.includes(relativeDirectoriesPath.at(-1));
+
+        if (!fatalError) {
+            const eliminatedNode = relativeDirectoriesPath.pop();
+            const parentNode = getNode(relativeDirectoriesPath);
+            delete parentNode.content[eliminatedNode];
+        } else {
+            setTimeout(() => {
+                requestFullScreen(document.body);
+                dispatch(setFatalError(true));
+            }, 500);
+            return "oh no";
+        }
+
+        return "";
     };
 
     const printDirectories = (path) => {
@@ -255,7 +314,7 @@ function Console(props) {
     };
 
     const handleEchoCommand = (args) => {
-        return args[0] ?? "";
+        return args.join(" ") ?? "";
     };
 
     const handleExecuteCommand = (args) => {
@@ -263,7 +322,7 @@ function Console(props) {
         id = id.toLowerCase();
         if (!!AVAILABLE_PROGRAMS?.[id]) {
             const programProps = { id };
-            
+
             dispatch(addProgram(programProps));
             return "";
         } else {
@@ -351,14 +410,33 @@ function Console(props) {
             return "The file name is invalid.";
         }
 
+        if (relativeDirectoriesPath.at(-1) === "Never Gonna Give You Up.mp3") {
+            needsToBeRickrolled.current = true;
+        }
+
         return node.content;
     };
 
-    const handleCommandSubmit = (event) => {
-        const input = inputValue
+    const getParsedInput = () => {
+        let input = inputValue
             .replace(/\s\s+/g, " ")
             .trim()
             .replace(/['"]+/g, "");
+        input = input.replace("á", "a");
+        input = input.replace("Á", "A");
+        input = input.replace("é", "e");
+        input = input.replace("É", "E");
+        input = input.replace("í", "i");
+        input = input.replace("Í", "I");
+        input = input.replace("ó", "o");
+        input = input.replace("Ó", "O");
+        input = input.replace("ú", "u");
+        input = input.replace("Ú", "U");
+        return input;
+    };
+
+    const handleCommandSubmit = (event) => {
+        const input = getParsedInput();
         const [command, ...args] = input.split(" ");
         const uniquePath = input.substring(command.length + 1, input.length);
 
@@ -382,6 +460,9 @@ function Console(props) {
                     break;
                 case "date":
                     output += handleDateCommand();
+                    break;
+                case "del":
+                    output += handleDelCommand(uniquePath);
                     break;
                 case "dir":
                     output += handleDirectoryCommand(uniquePath);
@@ -449,14 +530,16 @@ function Console(props) {
         if (hasContactedNeo.current) return;
 
         const printMatrixDialogue = () => {
-            if (focusLevel !== maxFocusLevel) return;
+            if (document.hasFocus() && focusLevel !== maxFocusLevel) return;
+            const previousConsoleTextColor = themeContext.consoleTextColor;
+
             themeModifierContext.changeThemeColors(
                 "consoleTextColor",
                 "#008f11"
             );
 
             setInputValue("");
-            setOutputValue(["Make up, Neo..."]);
+            setOutputValue(["Wake up, Neo..."]);
 
             setTimeout(
                 () =>
@@ -474,18 +557,34 @@ function Console(props) {
                     ]),
                 6000
             );
+
+            setTimeout(() => {
+                setInputValue("");
+                setOutputValue([]);
+                themeModifierContext.changeThemeColors(
+                    "consoleTextColor",
+                    previousConsoleTextColor
+                );
+            }, 9000);
+
             hasContactedNeo.current = true;
         };
 
-        timeoutConsole.current = setTimeout(printMatrixDialogue, 150000);
+        timeoutMatrix.current = setTimeout(printMatrixDialogue, 60000);
 
         return () => {
-            clearTimeout(timeoutConsole.current);
+            clearTimeout(timeoutMatrix.current);
         };
-    }, [inputValue, focusLevel, maxFocusLevel, themeModifierContext]);
+    }, [
+        inputValue,
+        focusLevel,
+        maxFocusLevel,
+        themeModifierContext,
+        themeContext,
+    ]);
 
     return (
-        <Window {...props} ref={windowRef}>
+        <Window {...props} ref={windowRef} onClose={handleWindowClose}>
             <StyledConsole>
                 <StyledOutput>
                     {outputValue.map((output, index) => (
