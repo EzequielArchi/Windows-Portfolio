@@ -1,13 +1,19 @@
 {
   "files": {
-    "main.js": "/Windows-Portfolio/static/js/main.89af69b8.js",
+    "main.js": "/Windows-Portfolio/static/js/main.7f753be6.js",
+    "static/media/Programs-Image.png": "/Windows-Portfolio/static/media/Programs-Image.f8687a9fa2c96b61a8ea.png",
     "static/media/Handsome_Man.png": "/Windows-Portfolio/static/media/Handsome_Man.6f1734195021b600ff86.png",
     "static/media/Browser_Icon.png": "/Windows-Portfolio/static/media/Browser_Icon.fe74ad5a0c8e3484a1e4.png",
+    "static/media/Welcome_Icon.png": "/Windows-Portfolio/static/media/Welcome_Icon.3594b04d2e508fd46c00.png",
+    "static/media/React_Logo.png": "/Windows-Portfolio/static/media/React_Logo.1e5639fdfd7c944093d3.png",
+    "static/media/Fontawesome_Logo.png": "/Windows-Portfolio/static/media/Fontawesome_Logo.7644b025e64603bb9148.png",
     "static/media/Mail_Icon.png": "/Windows-Portfolio/static/media/Mail_Icon.47e4956704e76234da9b.png",
+    "static/media/Responsive-Design-Image.png": "/Windows-Portfolio/static/media/Responsive-Design-Image.09ead6f1c1fa9c9fe0e1.png",
+    "static/media/Redux_Logo.png": "/Windows-Portfolio/static/media/Redux_Logo.b3b939c66aecf7d53967.png",
     "index.html": "/Windows-Portfolio/index.html",
-    "main.89af69b8.js.map": "/Windows-Portfolio/static/js/main.89af69b8.js.map"
+    "main.7f753be6.js.map": "/Windows-Portfolio/static/js/main.7f753be6.js.map"
   },
   "entrypoints": [
-    "static/js/main.89af69b8.js"
+    "static/js/main.7f753be6.js"
   ]
 }
