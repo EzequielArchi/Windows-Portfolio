@@ -1,6 +1,6 @@
 export const defaultTheme = {
     windowsColor: "#2B88D9",
-    desktopColor: "#0693E3",
+    desktopColor: "#0078D7",
     consoleBackgroundColor: "#121212",
     consoleTextColor: "#dfdfdf",
     lightThemeTextColor: "#000000",
