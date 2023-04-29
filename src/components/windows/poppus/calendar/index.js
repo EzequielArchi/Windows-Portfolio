@@ -146,8 +146,18 @@ const months = [
     "December",
 ];
 
+const isSameDate = (date1, date2) => {
+    return (
+        date1.getDate() === date2.getDate() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getYear() === date2.getYear()
+    );
+};
+
 const Calendar = (props) => {
     const [date, setDate] = useState(new Date());
+    const [isTodayDate, setIsTodayDate] = useState(true);
+
     const dateDay = date.getDate();
 
     const dispatch = useDispatch();
@@ -157,12 +167,14 @@ const Calendar = (props) => {
     const handlePrevMonthClick = () => {
         const newDate = new Date(date);
         newDate.setMonth(newDate.getMonth() - 1);
+        setIsTodayDate(isSameDate(new Date(), newDate));
         setDate(newDate);
     };
 
-    const HandleNextMonthClick = () => {
+    const handleNextMonthClick = () => {
         const newDate = new Date(date);
         newDate.setMonth(newDate.getMonth() + 1);
+        setIsTodayDate(isSameDate(new Date(), newDate));
         setDate(newDate);
     };
 
@@ -177,6 +189,7 @@ const Calendar = (props) => {
 
     const handleDateClick = () => {
         setDate(new Date());
+        setIsTodayDate(true);
     };
 
     const renderDays = () => {
@@ -236,15 +249,14 @@ const Calendar = (props) => {
     useLayoutEffect(() => {
         const updateDate = () => {
             const today = new Date();
-
-            if (today.getDate() !== dateDay) {
+            if (isTodayDate && today.getDate() !== dateDay) {
                 setDate(today);
             }
             setTimeout(() => updateDate(), 100);
         };
 
         updateDate();
-    }, [dateDay]);
+    }, [dateDay, isTodayDate]);
 
     return (
         <Popup
@@ -266,7 +278,7 @@ const Calendar = (props) => {
                             <FontAwesomeIcon icon={faChevronUp} />
                         </StyledArrow>
                         <StyledArrow
-                            onClick={HandleNextMonthClick}
+                            onClick={handleNextMonthClick}
                             title="Next month"
                         >
                             <FontAwesomeIcon icon={faChevronDown} />
