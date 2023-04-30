@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/Windows-Portfolio/static/js/main.3e2b5b7d.js",
+    "main.js": "/Windows-Portfolio/static/js/main.13cd3e68.js",
     "static/media/Programs-Image.png": "/Windows-Portfolio/static/media/Programs-Image.f8687a9fa2c96b61a8ea.png",
     "static/media/Handsome_Man.png": "/Windows-Portfolio/static/media/Handsome_Man.6f1734195021b600ff86.png",
     "static/media/Browser_Icon.png": "/Windows-Portfolio/static/media/Browser_Icon.fe74ad5a0c8e3484a1e4.png",
@@ -11,9 +11,9 @@
     "static/media/Responsive-Design-Image.png": "/Windows-Portfolio/static/media/Responsive-Design-Image.09ead6f1c1fa9c9fe0e1.png",
     "static/media/Redux_Logo.png": "/Windows-Portfolio/static/media/Redux_Logo.b3b939c66aecf7d53967.png",
     "index.html": "/Windows-Portfolio/index.html",
-    "main.3e2b5b7d.js.map": "/Windows-Portfolio/static/js/main.3e2b5b7d.js.map"
+    "main.13cd3e68.js.map": "/Windows-Portfolio/static/js/main.13cd3e68.js.map"
   },
   "entrypoints": [
-    "static/js/main.3e2b5b7d.js"
+    "static/js/main.13cd3e68.js"
   ]
 }
