@@ -604,7 +604,7 @@ function Console(props) {
                                 handleCommandSubmit();
                             }
                         }}
-                        autoFocus={false}
+                        autoFocus={true}
                         spellCheck={false}
                     />
                 </StyledInputContainer>
