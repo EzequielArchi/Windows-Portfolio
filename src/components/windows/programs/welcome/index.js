@@ -142,6 +142,14 @@ const StyledListItem = styled.div`
     }
 `;
 
+const WINDOW_MOBILE_MIN_SIZE = {
+    width: 320,
+    height: 570,
+};
+
+const WINDOW_MIN_SIZE =
+    "ontouchstart" in window ? WINDOW_MOBILE_MIN_SIZE : undefined;
+
 const Welcome = (props) => {
     const { focusLevel, maxFocusLevel } = props;
 
@@ -150,7 +158,7 @@ const Welcome = (props) => {
     };
 
     return (
-        <Window {...props} onClose={handleCloseWindow}>
+        <Window {...props} minSize={WINDOW_MIN_SIZE} onClose={handleCloseWindow}>
             <StyledSliders>
                 <Sliders
                     canSlide={focusLevel === maxFocusLevel}
@@ -185,7 +193,7 @@ const Welcome = (props) => {
                     </StyledSlide>
                     <StyledSlide className="slide-03">
                         <StyledListTitle>
-                            <span>This project was developed using React</span>
+                            <span>This project was developed with React</span>
                             <img src={ReactLogo} alt="" />
                         </StyledListTitle>
                         <span>Using the following libraries:</span>
