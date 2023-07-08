@@ -24,10 +24,10 @@ const detectCollision = (square1, square2) => {
     const { left: left2, top: top2, width: width2, height: height2 } = square2;
 
     return (
-        ((left1 < left2 + width2 && left1 > left2) ||
-            (left1 + width1 < left2 + width2 && left1 + width1 > left2)) &&
-        ((top1 < top2 + height2 && top1 > top2) ||
-            (top1 + height1 < top2 + height2 && top1 + height1 > top2))
+        left1 < left2 + width2 &&
+        left1 + width1 > left2 &&
+        top1 < top2 + height2 &&
+        top1 + height1 > top2
     );
 };
 
