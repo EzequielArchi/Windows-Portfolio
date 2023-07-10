@@ -51,10 +51,7 @@ const IconsList = memo(() => {
         const selectedIcon = [];
         AVAILABLE_ICONS_ARRAY.forEach((id) => {
             const iconDom = iconsRefs.current[id];
-            if (
-                detectCollision(iconDom.getBoundingClientRect(), selectRange) ||
-                detectCollision(selectRange, iconDom.getBoundingClientRect())
-            ) {
+            if (detectCollision(selectRange, iconDom.getBoundingClientRect())) {
                 selectedIcon.push(id);
             }
         });
